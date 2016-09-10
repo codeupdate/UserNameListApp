@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <title>Intertec</title>
+
+    </h:head>
+    <h:body>
+        <div id="userNameDiv">
+            <p:panel header="   User Name Test">
+        <h:form id="form">
+
+            <h:panelGroup id="formPanel">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <h:outputText value="Please enter a username : *" style="font-weight:bold;" />
+
+                <p:inputText id="userName" value="#{userBean.username}"
+                             maxlength="32"
+                             required="true">
+
+                </p:inputText>
+                <p:message for="userName" />
+                <p:dataList value="#{userBean.result.suggestions}" var="suggestedName" type="definition" rendered="#{userBean.showSuggestions}">
+                    <f:facet name="header">
+                        Suggested Usernames
+                    </f:facet>
+                    #{suggestedName}
+                </p:dataList>
+            </h:panelGroup>
+
+            <p:commandButton value ="Add" actionListener="#{userBean.addUserName}" update="datatablePanel, formPanel"/>
+
+
+
+
+            <h:panelGroup id="datatablePanel">
+        <p:dataTable id="indexDatatable" var="user" paginator="true"
+                     paginatorPosition="bottom"
+                     rowsPerPageTemplate="5,10,15,20"
+                     rows="10" value="#{userBean.userList}">
+            <p:column headerText="Id">
+
+                <h:outputText value="#{user.id}"/>
+            </p:column>
+            <p:column headerText="Username">
+
+                <h:outputText value="#{user.username}"/>
+            </p:column>
+
+
+        </p:dataTable>
+            </h:panelGroup>
+        </h:form>
+            </p:panel>
+        </div>
+
+    </h:body>
+
+</html>
